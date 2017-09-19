@@ -3,10 +3,12 @@ const testArea = document.querySelector("#test-area");
 const originText = document.querySelector("#origin-text p").innerHTML;
 const resetButton = document.querySelector("#reset");
 const theTimer = document.querySelector(".timer");
+const wordsPerMinute = document.querySelector(".wpm");
 
 var timer = [0,0,0,0];
 var interval;
 var timerRunning = false;
+var wpm;
 
 // Add leading zero to numbers 9 or below (purely for aesthetics):
 function leadingZero(time) {
@@ -28,12 +30,20 @@ function runTimer() {
 	timer[2] = Math.floor(timer[3] - (timer[1] * 100) - (timer[0] * 6000)); //every thousandth of a second -   (every thousandth of a second) / 100 is every 1 second - (every thousandth of a second) / 100 is every 1 second / 60 seconds is minutes * 60 seconds is seconds) * 100 is hundredths of a second -    (every thousandth of a second) / 100 is every 1 second / 60 seconds is minutes) * 6000, so every time minutes reaches 100 so we don't count upwards from there (6000 is from 60 * 100 (for each second, go up to 100))
 }
 
+//
+function calculateWordsPerMinute(seconds) {
+	wpm = Math.floor((35/seconds) * 60);
+	wordsPerMinute.innerHTML = wpm;
+	console.log(wpm);
+}
+
 // Match the text entered with the provided text on the page:
 function spellCheck() {
 	let textEntered = testArea.value;
 	let originTextMatch = originText.substring(0, textEntered.length);
 
 	if (textEntered === originText) {
+		calculateWordsPerMinute(timer[1]);
 		clearInterval(interval);
 		testWrapper.style.borderColor = "#429890";
 
