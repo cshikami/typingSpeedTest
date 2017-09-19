@@ -30,11 +30,10 @@ function runTimer() {
 	timer[2] = Math.floor(timer[3] - (timer[1] * 100) - (timer[0] * 6000)); //every thousandth of a second -   (every thousandth of a second) / 100 is every 1 second - (every thousandth of a second) / 100 is every 1 second / 60 seconds is minutes * 60 seconds is seconds) * 100 is hundredths of a second -    (every thousandth of a second) / 100 is every 1 second / 60 seconds is minutes) * 6000, so every time minutes reaches 100 so we don't count upwards from there (6000 is from 60 * 100 (for each second, go up to 100))
 }
 
-//
+// Calculate and display words typed per minute:
 function calculateWordsPerMinute(seconds) {
-	wpm = Math.floor((35/seconds) * 60);
+	wpm = Math.floor((35/seconds) * 60); //35 is the number of words in originText
 	wordsPerMinute.innerHTML = wpm;
-	console.log(wpm);
 }
 
 // Match the text entered with the provided text on the page:
@@ -43,7 +42,7 @@ function spellCheck() {
 	let originTextMatch = originText.substring(0, textEntered.length);
 
 	if (textEntered === originText) {
-		calculateWordsPerMinute(timer[1]);
+		calculateWordsPerMinute(timer[1]); //
 		clearInterval(interval);
 		testWrapper.style.borderColor = "#429890";
 
